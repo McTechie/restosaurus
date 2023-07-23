@@ -4,12 +4,19 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from django.contrib.auth.models import User, Group
 from .serializers import UserSerializer
-    
+
 
 class UserList(generics.ListAPIView):
     permission_classes = (IsAuthenticated, IsAdminUser)
-    queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get_queryset(self):
+        group = self.request.query_params.get('group')
+
+        if group:
+            return User.objects.filter(groups__name=group.lower())
+        else:
+            return User.objects.all()
 
 
 class RegisterView(generics.CreateAPIView):
@@ -77,6 +84,7 @@ class RemoveUserFromGroup(generics.DestroyAPIView):
         if not manager_group:
             return Response({'message': f'Group {group} not found'}, status=status.HTTP_404_NOT_FOUND)
 
+        # remove user from group
         manager_group.user_set.remove(user)
 
         return Response({'message': f'User {username} removed from Manager group'}, status=status.HTTP_200_OK)
