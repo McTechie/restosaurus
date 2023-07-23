@@ -22,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("sandbox_api.urls")),
     path("api/menu/", include("menu_api.urls")),
+    path("api/auth/", include("auth_api.urls")),
 ]
