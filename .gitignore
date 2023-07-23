@@ -7,3 +7,6 @@ env/
 # environment files
 *.env
 *.env.local
+
+# macOS
+.DS_Store
