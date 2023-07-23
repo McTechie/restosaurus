@@ -91,7 +91,6 @@ DATABASES = {
     "default": dj_database_url.config(
         engine="django.db.backends.postgresql",
         default=os.getenv("DATABASE_URL", default=""),
-        # default="postgres://default:KmhqT7DI0fzx@ep-jolly-wave-698748-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb",
         conn_max_age=600,
         conn_health_checks=True,
     )
