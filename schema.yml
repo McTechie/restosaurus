@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: Restosaurus API
   version: 1.0.0
-  description: A simple restaurant backend created with Django and Django REST Framework.
+  description: A simple restaurant backend created with Django and DRF.
 paths:
   /:
     get:
@@ -37,9 +37,9 @@ paths:
           description: No response body
   /api/auth/groups/:
     post:
-      operationId: api_auth_groups_create
+      operationId: auth_groups_create
       tags:
-      - api
+      - auth
       security:
       - jwtAuth: []
       responses:
@@ -47,7 +47,7 @@ paths:
           description: No response body
   /api/auth/groups/{id}/:
     delete:
-      operationId: api_auth_groups_destroy
+      operationId: auth_groups_destroy
       parameters:
       - in: path
         name: id
@@ -55,7 +55,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - auth
       security:
       - jwtAuth: []
       responses:
@@ -63,12 +63,12 @@ paths:
           description: No response body
   /api/auth/login/:
     post:
-      operationId: api_auth_login_create
+      operationId: auth_login_create
       description: |-
         Takes a set of user credentials and returns an access and refresh JSON web
         token pair to prove the authentication of those credentials.
       tags:
-      - api
+      - auth
       requestBody:
         content:
           application/json:
@@ -90,9 +90,9 @@ paths:
           description: ''
   /api/auth/register/:
     post:
-      operationId: api_auth_register_create
+      operationId: auth_register_create
       tags:
-      - api
+      - auth
       security:
       - jwtAuth: []
       - {}
@@ -101,12 +101,12 @@ paths:
           description: No response body
   /api/auth/token-blacklist/:
     post:
-      operationId: api_auth_token_blacklist_create
+      operationId: auth_token_blacklist_create
       description: |-
         Takes a token and blacklists it. Must be used with the
         `rest_framework_simplejwt.token_blacklist` app installed.
       tags:
-      - api
+      - auth
       requestBody:
         content:
           application/json:
@@ -128,12 +128,12 @@ paths:
           description: ''
   /api/auth/token-refresh/:
     post:
-      operationId: api_auth_token_refresh_create
+      operationId: auth_token_refresh_create
       description: |-
         Takes a refresh type JSON web token and returns an access type JSON web
         token if the refresh token is valid.
       tags:
-      - api
+      - auth
       requestBody:
         content:
           application/json:
@@ -155,9 +155,9 @@ paths:
           description: ''
   /api/auth/users/:
     get:
-      operationId: api_auth_users_list
+      operationId: auth_users_list
       tags:
-      - api
+      - auth
       security:
       - jwtAuth: []
       responses:
@@ -171,9 +171,9 @@ paths:
           description: ''
   /api/menu/categories/:
     get:
-      operationId: api_menu_categories_list
+      operationId: menu_categories_list
       tags:
-      - api
+      - menu
       security:
       - jwtAuth: []
       responses:
@@ -186,9 +186,9 @@ paths:
                   $ref: '#/components/schemas/Category'
           description: ''
     post:
-      operationId: api_menu_categories_create
+      operationId: menu_categories_create
       tags:
-      - api
+      - menu
       requestBody:
         content:
           application/json:
@@ -212,7 +212,7 @@ paths:
           description: ''
   /api/menu/categories/{id}/:
     get:
-      operationId: api_menu_categories_retrieve
+      operationId: menu_categories_retrieve
       parameters:
       - in: path
         name: id
@@ -220,7 +220,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - menu
       security:
       - jwtAuth: []
       responses:
@@ -231,7 +231,7 @@ paths:
                 $ref: '#/components/schemas/Category'
           description: ''
     put:
-      operationId: api_menu_categories_update
+      operationId: menu_categories_update
       parameters:
       - in: path
         name: id
@@ -239,7 +239,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - menu
       requestBody:
         content:
           application/json:
@@ -262,7 +262,7 @@ paths:
                 $ref: '#/components/schemas/Category'
           description: ''
     patch:
-      operationId: api_menu_categories_partial_update
+      operationId: menu_categories_partial_update
       parameters:
       - in: path
         name: id
@@ -270,7 +270,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - menu
       requestBody:
         content:
           application/json:
@@ -292,7 +292,7 @@ paths:
                 $ref: '#/components/schemas/Category'
           description: ''
     delete:
-      operationId: api_menu_categories_destroy
+      operationId: menu_categories_destroy
       parameters:
       - in: path
         name: id
@@ -300,7 +300,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - menu
       security:
       - jwtAuth: []
       responses:
@@ -308,9 +308,9 @@ paths:
           description: No response body
   /api/menu/items/:
     get:
-      operationId: api_menu_items_list
+      operationId: menu_items_list
       tags:
-      - api
+      - menu
       security:
       - jwtAuth: []
       responses:
@@ -323,9 +323,9 @@ paths:
                   $ref: '#/components/schemas/MenuItem'
           description: ''
     post:
-      operationId: api_menu_items_create
+      operationId: menu_items_create
       tags:
-      - api
+      - menu
       requestBody:
         content:
           application/json:
@@ -349,7 +349,7 @@ paths:
           description: ''
   /api/menu/items/{id}/:
     get:
-      operationId: api_menu_items_retrieve
+      operationId: menu_items_retrieve
       parameters:
       - in: path
         name: id
@@ -357,7 +357,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - menu
       security:
       - jwtAuth: []
       responses:
@@ -368,7 +368,7 @@ paths:
                 $ref: '#/components/schemas/MenuItem'
           description: ''
     put:
-      operationId: api_menu_items_update
+      operationId: menu_items_update
       parameters:
       - in: path
         name: id
@@ -376,7 +376,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - menu
       requestBody:
         content:
           application/json:
@@ -399,7 +399,7 @@ paths:
                 $ref: '#/components/schemas/MenuItem'
           description: ''
     patch:
-      operationId: api_menu_items_partial_update
+      operationId: menu_items_partial_update
       parameters:
       - in: path
         name: id
@@ -407,7 +407,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - menu
       requestBody:
         content:
           application/json:
@@ -429,7 +429,7 @@ paths:
                 $ref: '#/components/schemas/MenuItem'
           description: ''
     delete:
-      operationId: api_menu_items_destroy
+      operationId: menu_items_destroy
       parameters:
       - in: path
         name: id
@@ -437,7 +437,7 @@ paths:
           type: integer
         required: true
       tags:
-      - api
+      - menu
       security:
       - jwtAuth: []
       responses:
