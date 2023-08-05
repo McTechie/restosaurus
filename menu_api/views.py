@@ -1,18 +1,18 @@
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from .models import Item, Category
-from .serializers import ItemSerializer, CategorySerializer
+from .models import MenuItem, Category
+from .serializers import MenuItemSerializer, CategorySerializer
 
 
-class Items(generics.ListCreateAPIView):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
+class MenuItems(generics.ListCreateAPIView):
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
     permission_classes = (IsAuthenticated,)
 
 
-class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
+class MenuItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
     permission_classes = (IsAuthenticated,)
 
 

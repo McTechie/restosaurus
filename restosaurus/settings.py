@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "corsheaders",
     "rest_framework",
+    "drf_spectacular",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
     "sandbox_api",
@@ -62,6 +63,8 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = "restosaurus.urls"
 
@@ -146,6 +149,16 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.AllowAny",
         "rest_framework.permissions.IsAuthenticated",
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Restosaurus API',
+    'DESCRIPTION': 'A simple restaurant backend created with Django and DRF.',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SCHEMA_PATH_PREFIX': '/api',
+    'SERVE_AUTHENTICATION': None,
 }
 
 SIMPLE_JWT = {
