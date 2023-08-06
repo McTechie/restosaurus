@@ -1,5 +1,7 @@
 # Restosaurus Backend
 
+> To view the API documentation, visit the **`/api/docs/`** endpoint.
+
 ### Project Structure
 
 - `restosaurus/` - Root app
