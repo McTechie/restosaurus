@@ -16,22 +16,6 @@ paths:
             - success: Response (Rest Framework) containing a welcome message
       security:
       - jwtAuth: []
-      - {}
-      responses:
-        '200':
-          description: No response body
-    post:
-      operationId: root_create
-      description: |-
-        Echo the request body.
-
-        Returns:
-        --------
-        response:
-            - success: Response (Rest Framework) containing the request body
-      security:
-      - jwtAuth: []
-      - {}
       responses:
         '200':
           description: No response body
@@ -169,6 +153,44 @@ paths:
                 items:
                   $ref: '#/components/schemas/User'
           description: ''
+  /api/menu/assign-order/:
+    put:
+      operationId: menu_assign_order_update
+      tags:
+      - menu
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: menu_assign_order_partial_update
+      tags:
+      - menu
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/menu/cart/:
+    get:
+      operationId: menu_cart_retrieve
+      tags:
+      - menu
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: menu_cart_create
+      tags:
+      - menu
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          description: No response body
   /api/menu/categories/:
     get:
       operationId: menu_categories_list
@@ -305,6 +327,16 @@ paths:
       - jwtAuth: []
       responses:
         '204':
+          description: No response body
+  /api/menu/customer-orders/:
+    get:
+      operationId: menu_customer_orders_retrieve
+      tags:
+      - menu
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
           description: No response body
   /api/menu/items/:
     get:
@@ -443,6 +475,82 @@ paths:
       responses:
         '204':
           description: No response body
+  /api/menu/orders/:
+    get:
+      operationId: menu_orders_list
+      tags:
+      - menu
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+          description: ''
+    post:
+      operationId: menu_orders_create
+      tags:
+      - menu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+  /api/menu/orders/{id}/:
+    get:
+      operationId: menu_orders_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - menu
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+  /api/menu/orders/{id}/items/:
+    get:
+      operationId: menu_orders_items_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - menu
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
 components:
   schemas:
     Category:
@@ -520,6 +628,20 @@ components:
       required:
       - password
       - username
+    Order:
+      type: object
+      properties:
+        user:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
+        delivery_crew:
+          allOf:
+          - $ref: '#/components/schemas/User'
+          readOnly: true
+      required:
+      - delivery_crew
+      - user
     PatchedCategory:
       type: object
       properties:
